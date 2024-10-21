@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+ 
 public class InteractableObject : MonoBehaviour
 {
     public string ItemName;
@@ -11,7 +11,16 @@ public class InteractableObject : MonoBehaviour
 
     public void Update(){
         if(Input.GetKeyDown(KeyCode.E) && playerInRange && SelectionManager.Instance.onTarget){
-            Destroy(gameObject);
+            
+            //if inventory is not full
+            if(!InventorySystem.Instance.CheckIfFull()){
+                InventorySystem.Instance.AddToInventory(ItemName);
+                Destroy(gameObject);
+            }
+            else {
+
+            }
+
         }
     }
     public string GetItemName()
